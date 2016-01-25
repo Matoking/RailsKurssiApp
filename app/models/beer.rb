@@ -4,11 +4,13 @@ class Beer < ActiveRecord::Base
 
     def average_rating
         if ratings.empty?
-            return nil
+            nil
         else
-            sum = 0
-            ratings.each { |rating| sum += rating.score }
-            return sum.to_f / ratings.count.to_f
+            ratings.inject(0) { |sum, rating| sum + (rating.score) }.to_f / ratings.count.to_f
         end
+    end
+
+    def to_s
+        "#{name} (#{brewery.name})"
     end
 end
