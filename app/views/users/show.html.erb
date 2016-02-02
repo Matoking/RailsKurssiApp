@@ -16,7 +16,7 @@
     <% else %>
     <ul>
         <% @user.ratings.each do |rating| %>
-            <li><%= rating %> <% if current_user %><%= link_to 'delete', rating, method: :delete %><% end %></li>
+            <li><%= rating %> <% if @user == current_user %><%= link_to 'delete', rating, method: :delete %><% end %></li>
         <% end %>
     </ul>
     <% end %>
@@ -29,11 +29,14 @@
     <% else %>
     <ul>
         <% @user.memberships.each do |membership| %>
-            <li><%= link_to membership.beerclub.name, membership.beerclub %> <% if current_user %><%= link_to 'delete', membership, method: :delete %><% end %></li>
+            <li><%= link_to membership.beerclub.name, membership.beerclub %></li>
         <% end %>
     </ul>
     <% end %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if @user == current_user %>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
 <%= link_to 'Back', users_path %>
