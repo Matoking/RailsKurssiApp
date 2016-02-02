@@ -7,9 +7,13 @@ class SessionsController < ApplicationController
         # haetaan käyttäjä
         user = User.find_by username: params[:username]
 
-        session[:user_id] = user.id if not user.nil?
+        if user.nil?
+            redirect_to :back, notice: "User #{params[:username]} does not exist"
+        else
+            session[:user_id] = user.id if not user.nil?
 
-        redirect_to user
+            redirect_to user, notice: "Welcome back!"
+        end
     end
 
     def destroy

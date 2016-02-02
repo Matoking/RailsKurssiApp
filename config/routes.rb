@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :memberships
+  resources :beerclubs
   root 'breweries#index'
 
   resources :beers

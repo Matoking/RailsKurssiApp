@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @beerclub.name %>
+</p>
+
+<p>
+  <strong>Founded:</strong>
+  <%= @beerclub.founded %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @beerclub.city %>
+</p>
+
+<p>
+    <strong>Members</strong>
+
+    <% if @beerclub.members.empty? %>
+    <p>No members</p>
+    <% else %>
+    <ul>
+        <% @beerclub.members.each do |member| %>
+        <li><%= link_to member.username, member %></li>
+        <% end %>
+    </ul>
+    <% end %>
+</p>
+
+<%= link_to 'Edit', edit_beerclub_path(@beerclub) %> |
+<%= link_to 'Back', beerclubs_path %>
