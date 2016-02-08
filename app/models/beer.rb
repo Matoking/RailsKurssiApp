@@ -3,9 +3,11 @@ class Beer < ActiveRecord::Base
 
     belongs_to :brewery
     has_many :ratings, dependent: :destroy
+    has_many :breweries, through: :ratings
     has_many :raters, -> { uniq }, through: :ratings, source: :user
 
     validates :name, length: { minimum: 1 }
+    validates :style, length: { minimum: 1 }
 
     def average
         return 0 if ratings.empty?
