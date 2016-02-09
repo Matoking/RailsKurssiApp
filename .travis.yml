@@ -1,10 +1,15 @@
 language: ruby
-
 rvm:
- - 2.1.2
-
+- 2.1.2
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: LIcLnPcQU3jVnRC6qKYMsOSJQJoAKvxoeC8BYbp0+oqPg+LofkJn0P6ILS/GztgiIr2H9dzZPjGmHZ4UiaJHcjkw+t2WlUskdfmqCXBc9OAGdnRWFhLltOlqlWh1XVG8kLZuJBXlHNZDaK8p+mdrxl1W5eTJVFpvukOb5grGdCOkl5ud6p+JxUx/tKkiCuNipd1CO7DgtaoTjoc9CCyv5lcPcbA+Rncu0C86EhaGbaIRqXkEgmYWWWuRRSw0rsJeI47vkdh1oDftmsbuQINx+vDgI6deur0HkM0ZC3EklLc3JBLsDGvejttAMWx69vFs3QBa9IBYvsfazQ2afQlrdoK7Ay7UUTiOvKKqBOF/UnzoM9Ypl0DitOWERxlxLbrXVfevyBAAgjoYR4g+Ku9IcOecELE8LgK21+rZUXOXwWcP49wIhzRN2NiihhYPFImNfYFwIOxscNTgp6lV5rhEPCPRxXyjrJsafBovPab3ybjRraKaaaAmxvTtXI6wReYjenE7GnvwbIBxpl4LoxWOyQgaL/XOGrkQCyldcOY7tgqvAbBvyE3/7n2HvKNX/Yx+yjtzlrB2wujT15Bois92KEDUk4EDDHS3AmjcyEd0YO2S2r/f1BVS4s34mqcC89JbnophEF+Cn6ZB7K9yBabXp4UuX5/z9D6ZzYhawkYdV7U=
+  app: pure-fjord-5216
+  on:
+    repo: Matoking/RailsKurssiApp

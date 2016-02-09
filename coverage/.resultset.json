@@ -180,8 +180,12 @@
         1,
         null,
         1,
-        96,
-        72,
+        117,
+        77,
+        null,
+        null,
+        1,
+        4,
         null,
         null
       ],
@@ -282,6 +286,7 @@
         null
       ],
       "/home/odroid/rails_apps/ratebeer/ratebeer/app/controllers/beers_controller.rb": [
+        1,
         1,
         1,
         1,
@@ -429,13 +434,6 @@
         null,
         null,
         1,
-        1,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
         null,
         1,
         1,
@@ -478,6 +476,7 @@
         null
       ],
       "/home/odroid/rails_apps/ratebeer/ratebeer/app/controllers/beerclubs_controller.rb": [
+        0,
         0,
         0,
         0,
@@ -680,6 +679,6 @@
         0
       ]
     },
-    "timestamp": 1455010189
+    "timestamp": 1455012837
   }
 }
