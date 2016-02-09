@@ -35,6 +35,20 @@
     <% end %>
 </p>
 
+<% favorite_style = @user.favorite_style %>
+<% if favorite_style != nil %>
+<p>
+    Favorite style: <%= favorite_style %>
+</p>
+<% end %>
+
+<% favorite_brewery = @user.favorite_brewery %>
+<% if favorite_brewery != nil %>
+<p>
+    Favorite brewery: <%= favorite_brewery.name %>
+</p>
+<% end %>
+
 <% if @user == current_user %>
     <%= link_to 'Edit', edit_user_path(@user) %> |
     <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |

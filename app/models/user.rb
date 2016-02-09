@@ -28,12 +28,17 @@ class User < ActiveRecord::Base
     end
 
     def favorite_style
+        return nil if ratings.empty?
+
         styles = Beer.select(:style).map(&:style).uniq
 
-        highest_average = 0
+        highest_average = 0.0
         highest_average_style = nil
         styles.each do |name|
             style_average = ratings.joins(:beer).where("beers.style = ?", name).average(:score)
+            if style_average == nil
+                style_average = 0.0
+            end
 
             if style_average > highest_average
                 highest_average = style_average
@@ -45,12 +50,17 @@ class User < ActiveRecord::Base
     end
 
     def favorite_brewery
+        return nil if ratings.empty?
+
         breweries = Brewery.all
 
         highest_average = 0
         highest_average_brewery = nil
         breweries.each do |brewery|
             style_average = ratings.joins(:beer).joins("INNER JOIN breweries ON breweries.id = beers.brewery_id").average(:score)
+            if style_average == nil
+                style_average = 0.0
+            end
 
             if style_average > highest_average
                 highest_average = style_average
