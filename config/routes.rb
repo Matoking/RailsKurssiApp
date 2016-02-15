@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
 
-  get 'places', to: 'places#index'
+  resources :places, only: [:index, :show]
+
   post 'places', to: 'places#search'
 
   resource :session, only: [:new, :create, :destroy]

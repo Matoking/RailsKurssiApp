@@ -13,6 +13,6 @@
     </div>
     <% end %>
 
-    <p><%= f.select :beerclub_id, options_from_collection_for_select(@beerclubs, :id, :to_s) %></p>
+    <p><%= f.select :beerclub_id, options_from_collection_for_select(@beerclubs, :id, :to_s, selected: @membership.beerclub) %></p>
     <%= f.submit %>
 <% end %>

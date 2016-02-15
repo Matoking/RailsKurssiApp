@@ -29,7 +29,7 @@ class MembershipsController < ApplicationController
     @membership.user = current_user
 
     if @membership.save
-        redirect_to user_path current_user
+        redirect_to beerclub_path(@membership.beerclub)
     else
         @beerclubs = Beerclub.all
         render :new

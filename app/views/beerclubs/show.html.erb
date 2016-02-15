@@ -21,5 +21,15 @@
     <% end %>
 </p>
 
+<% if current_user and not @beerclub.members.include?(current_user)  %>
+  <h4>join club:</h4>
+
+  <%= form_for(@membership) do |f| %>
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :beerclub_id %>
+    <%= f.submit value:"join the club" %>
+  <% end %>
+<% end %>
+
 <%= link_to('Edit', edit_beerclub_path(@beerclub)) if current_user %> |
 <%= link_to 'Back', beerclubs_path %>
