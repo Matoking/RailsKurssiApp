@@ -21,8 +21,11 @@ describe "User" do
         end
 
         it "can view his favorite style" do
-            beer1 = FactoryGirl.create(:beer, name:"Best Beer", style:"Best Style")
-            beer2 = FactoryGirl.create(:beer, name:"Worst Beer", style:"Worst Style")
+            style1 = FactoryGirl.create(:style, name:"Best Style")
+            style2 = FactoryGirl.create(:style, name:"Worst Style")
+
+            beer1 = FactoryGirl.create(:beer, name:"Best Beer", style: style1)
+            beer2 = FactoryGirl.create(:beer, name:"Worst Beer", style: style2)
 
             FactoryGirl.create(:rating, beer:beer1, user: user, score: 20)
             FactoryGirl.create(:rating, beer:beer1, user: user, score: 10)
@@ -33,11 +36,14 @@ describe "User" do
         end
 
         it "can view his favorite brewery" do
+            style1 = FactoryGirl.create(:style, name:"Best Style")
+            style2 = FactoryGirl.create(:style, name:"Worst Style")
+
             brewery1 = FactoryGirl.create(:brewery, name:"Best Brewery", year:1999)
             brewery2 = FactoryGirl.create(:brewery, name:"Worst Brewery", year:1990)
 
-            beer1 = FactoryGirl.create(:beer, name:"Best Beer", style:"Best Style", brewery: brewery1)
-            beer2 = FactoryGirl.create(:beer, name:"Worst Beer", style:"Worst Style", brewery: brewery2)
+            beer1 = FactoryGirl.create(:beer, name:"Best Beer", style: style1, brewery: brewery1)
+            beer2 = FactoryGirl.create(:beer, name:"Worst Beer", style: style2, brewery: brewery2)
 
             FactoryGirl.create(:rating, beer:beer1, user: user, score: 20)
             FactoryGirl.create(:rating, beer:beer1, user: user, score: 10)

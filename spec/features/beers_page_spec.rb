@@ -11,10 +11,11 @@ describe "Beers path" do
         sign_in(username:"Pekka", password:"Foobar1")
 
         brewery = Brewery.create name:"Test brewery", year:1990
+        style = Style.create name:"Test style"
 
         visit new_beer_path
         fill_in('beer_name', with:"Test beer")
-        select('Lager', from:'beer[style]')
+        select(style.name, from:'beer[style_id]')
         select(brewery.name, from:'beer[brewery_id]')
 
         expect {
@@ -26,9 +27,10 @@ describe "Beers path" do
         sign_in(username:"Pekka", password:"Foobar1")
 
         brewery = Brewery.create name:"Test brewery", year:1990
+        style = Style.create name:"Test style"
 
         visit new_beer_path
-        select('Lager', from:'beer[style]')
+        select(style.name, from:'beer[style_id]')
         select(brewery.name, from:'beer[brewery_id]')
 
         click_button("Create Beer")
