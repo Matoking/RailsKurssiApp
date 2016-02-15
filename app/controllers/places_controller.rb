@@ -4,7 +4,7 @@ class PlacesController < ApplicationController
 
     def show
         @place = BeermappingApi.place(params[:id])
-        print(@place)
+        @place.blogmap = @place.blogmap[@place.blogmap.index("//")..-1]
     end
 
     def search
