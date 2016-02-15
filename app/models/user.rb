@@ -30,45 +30,25 @@ class User < ActiveRecord::Base
     def favorite_style
         return nil if ratings.empty?
 
-        styles = Beer.select(:style).map(&:style).uniq
-
-        highest_average = 0.0
-        highest_average_style = nil
-        styles.each do |name|
-            style_average = ratings.joins(:beer).where("beers.style = ?", name).average(:score)
-            if style_average == nil
-                style_average = 0.0
-            end
-
-            if style_average > highest_average
-                highest_average = style_average
-                highest_average_style = name
-            end
-        end
-
-        return highest_average_style
+        rated = ratings.map{ |r| r.beer.style }.uniq
+        rated.sort_by { |style| -rating_of_style(style) }.first
     end
 
     def favorite_brewery
         return nil if ratings.empty?
 
-        breweries = Brewery.all
+        rated = ratings.map{ |r| r.beer.brewery }.uniq
+        rated.sort_by { |brewery| -rating_of_brewery(brewery) }.first
+    end
 
-        highest_average = 0
-        highest_average_brewery = nil
-        breweries.each do |brewery|
-            style_average = ratings.joins(:beer).joins("INNER JOIN breweries ON breweries.id = beers.brewery_id").average(:score)
-            if style_average == nil
-                style_average = 0.0
-            end
+    def rating_of_style(style)
+        ratings_of = ratings.select{ |r| r.beer.style==style }
+        ratings_of.map(&:score).inject(&:+) / ratings_of.count.to_f
+    end
 
-            if style_average > highest_average
-                highest_average = style_average
-                highest_average_brewery = brewery
-            end
-        end
-
-        return highest_average_brewery
+    def rating_of_brewery(brewery)
+        ratings_of = ratings.select{ |r| r.beer.brewery==brewery }
+        ratings_of.map(&:score).inject(&:+) / ratings_of.count.to_f
     end
 
     def to_s
