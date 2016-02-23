@@ -8,8 +8,12 @@ class SessionsController < ApplicationController
         user = User.find_by username: params[:username]
 
         if user && user.authenticate(params[:password])
-            session[:user_id] = user.id if not user.nil?
-            redirect_to user, notice: "Welcome back!"
+            if not user.frozen_access
+                session[:user_id] = user.id if not user.nil?
+                redirect_to user, notice: "Welcome back!"
+            else
+                redirect_to signin_path, notice: "Your account is frozen, please contact admin"
+            end
         else
             redirect_to :back, notice: "Username/password mismatch"
         end

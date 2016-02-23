@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_user_is_admin, only: [:toggle_freeze]
 
   # GET /users
   # GET /users.json
@@ -19,6 +20,15 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  def toggle_freeze
+      user = User.find(params[:id])
+      user.update_attribute :frozen_access, (not user.frozen_access)
+
+      new_status = user.frozen_access? ? "frozen" : "unfrozen"
+
+      redirect_to :back, notice:"user status set to #{new_status}"
   end
 
   # POST /users

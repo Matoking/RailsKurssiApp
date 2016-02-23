@@ -3,7 +3,7 @@
     <% entries.each do |entry| %>
         <tr>
             <td><%= entry %></td>
-            <td><%= entry.average_rating %></td>
+            <td><%= round(entry.average_rating) %></td>
         </tr>
     <% end %>
     </tbody>

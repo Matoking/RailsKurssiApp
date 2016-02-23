@@ -4,8 +4,15 @@ Rails.application.routes.draw do
   root 'breweries#index'
 
   resources :beers
-  resources :breweries
-  resources :users
+
+  resources :breweries do
+      post 'toggle_activity', on: :member
+  end
+
+  resources :users do
+      post 'toggle_freeze', on: :member
+  end
+
   resources :styles
 
   resources :ratings, only: [:index, :new, :create, :destroy]
