@@ -1,0 +1,10 @@
+<table class="table table-hover">
+    <tbody>
+    <% entries.each do |entry| %>
+        <tr>
+            <td><%= entry %></td>
+            <td><%= entry.average_rating %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>

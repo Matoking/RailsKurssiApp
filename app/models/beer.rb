@@ -12,9 +12,8 @@ class Beer < ActiveRecord::Base
     validates :name, length: { minimum: 1 }
     validates :style, presence: true
 
-    def average
-        return 0 if ratings.empty?
-        ratings.map{ |r| r.score}.sum / ratings.count.to_f
+    def self.top(n)
+        Beer.all.sort_by{ |b| -(b.average_rating||0) }.take(n)
     end
 
     def to_s

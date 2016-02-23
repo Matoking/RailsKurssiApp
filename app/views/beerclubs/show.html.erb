@@ -36,5 +36,5 @@
    <% end %>
 <% end %>
 
-<%= link_to('Edit', edit_beerclub_path(@beerclub)) if current_user %> |
+<%= link_to('Edit', edit_beerclub_path(@beerclub), class:"btn btn-primary") if current_user %> |
 <%= link_to 'Back', beerclubs_path %>

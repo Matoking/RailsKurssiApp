@@ -1,56 +1,79 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
+<div class="page-header">
+  <h1><%= @user.username %></h1>
+</div>
 <p>
     has made <%= @user.ratings.count %> ratings, average <%= @user.average_rating %>
 </p>
 
-<p>
-    <strong>Ratings</strong>
-    <% if @user.ratings.empty? %>
-    <p>No ratings</p>
-    <% else %>
-    <ul>
-        <% @user.ratings.each do |rating| %>
-            <li><%= rating %> <% if @user == current_user %><%= link_to 'delete', rating, method: :delete %><% end %></li>
-        <% end %>
-    </ul>
-    <% end %>
-</p>
-
-<p>
-    <strong>Beer club memberships</strong>
-    <% if @user.memberships.empty? %>
-    <p>No memberships</p>
-    <% else %>
-    <ul>
-        <% @user.memberships.each do |membership| %>
-            <li><%= link_to membership.beerclub.name, membership.beerclub %></li>
-        <% end %>
-    </ul>
-    <% end %>
-</p>
-
-<% favorite_style = @user.favorite_style %>
-<% if favorite_style != nil %>
-<p>
-    Favorite style: <%= favorite_style %>
-</p>
-<% end %>
-
-<% favorite_brewery = @user.favorite_brewery %>
-<% if favorite_brewery != nil %>
-<p>
-    Favorite brewery: <%= favorite_brewery.name %>
-</p>
-<% end %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Ratings</h4>
+            <% if @user.ratings.empty? %>
+            <p>No ratings</p>
+            <% else %>
+            <table class="table table-hover">
+                <tbody>
+                <% @user.ratings.each do |rating| %>
+                    <tr>
+                        <td><%= rating %></td>
+                        <% if @user == current_user %><td><%= link_to 'delete', rating, method: :delete, class: 'btn btn-xs btn-danger' %></td><% end %>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+            <% end %>
+        </div>
+        <div class="col-md-4">
+            <h4>Beer club memberships</h4>
+            <% if @user.memberships.empty? %>
+            <p>No memberships</p>
+            <% else %>
+            <table class="table table-hover">
+                <tbody>
+                <% @user.memberships.each do |membership| %>
+                    <tr><td><%= link_to membership.beerclub.name, membership.beerclub %></td></tr>
+                <% end %>
+                </tbody>
+            </table>
+            <% end %>
+        </div>
+        <div class="col-md-4">
+            <h4>Favorites</h4>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td>Favorite style</td>
+                        <td>
+                            <% favorite_style = @user.favorite_style %>
+                            <% if favorite_style != nil %>
+                            <%= favorite_style %>
+                            <% else %>
+                            none yet
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Favorite brewery</td>
+                        <td>
+                            <% favorite_brewery = @user.favorite_brewery %>
+                            <% if favorite_brewery != nil %>
+                            <%= favorite_brewery.name %>
+                            <% else %>
+                            none yet
+                            <% end %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 <% if @user == current_user %>
-    <%= link_to 'Edit', edit_user_path(@user) %> |
-    <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+    <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-primary" %>
+    <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
 <% end %>
 <%= link_to 'Back', users_path %>

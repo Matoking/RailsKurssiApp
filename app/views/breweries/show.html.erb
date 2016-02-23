@@ -1,7 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <h2><%= @brewery.name %></h2>
+  <h2>
+      <%= @brewery.name %>
+      <% if not @brewery.active %>
+      <span class="label label-info">retired</span>
+      <% end %>
+  </h2>
 </p>
 
 <p>
@@ -10,11 +15,15 @@
 
 <p>Number of beers: <%= @brewery.beers.count %></p>
 
-<p>
-    <% @brewery.beers.each do |beer| %>
-        <%= link_to beer.name, beer %>
-    <% end %>
-</p>
+<table class="table table-hover">
+    <tbody>
+        <% @brewery.beers.each do |beer| %>
+        <tr>
+            <td><%= link_to beer.name, beer %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
 
 <% if @brewery.ratings.empty? %>
 <p>Brewery has not been rated yet.</p>
@@ -22,5 +31,5 @@
 <p>Has <%= pluralize(@brewery.ratings.count, 'rating', 'ratings') %>, average <%= @brewery.average_rating %></p>
 <% end %>
 
-<%= link_to('Edit', edit_brewery_path(@brewery)) if current_user %> |
+<%= link_to('Edit', edit_brewery_path(@brewery), class:"btn btn-primary") if current_user %> |
 <%= link_to 'Back', breweries_path %>

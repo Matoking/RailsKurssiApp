@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
         end
     end
 
+    def self.top_raters(n)
+        User.all.sort_by{ |u| -(u.ratings.count||0) }.take(n)
+    end
+
     def favorite_beer
         return nil if ratings.empty?
 

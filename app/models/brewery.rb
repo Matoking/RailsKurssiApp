@@ -10,10 +10,17 @@ class Brewery < ActiveRecord::Base
     validates :year, numericality: { greater_than_or_equal_to: 1042,
                                      only_integer: true }
 
+    scope :active, -> { where active: true }
+    scope :retired, -> { where active: [nil, false] }
+
     def year_cant_be_in_the_future
         if year > Time.now.year
             errors.add(:year, "can't be in the future")
         end
+    end
+
+    def self.top(n)
+        Brewery.all.sort_by{ |b| -(b.average_rating||0) }.take(n)
     end
 
     def print_report
@@ -25,5 +32,9 @@ class Brewery < ActiveRecord::Base
     def restart
         self.year = 2016
         puts "changed year to #{year}"
+    end
+
+    def to_s
+        "#{name}"
     end
 end
