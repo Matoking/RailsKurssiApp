@@ -2,6 +2,9 @@
 
 <h1>Listing Breweries</h1>
 
+<p>Order by: <% if @order == 'name' %><%= link_to 'name', breweries_path(order:'name_r') %><% else %><%= link_to 'name', breweries_path(order:'name') %><% end %>,
+             <% if @order == 'year' %><%= link_to 'year', breweries_path(order:'year_r') %><% else %><%= link_to 'year', breweries_path(order:'year') %><% end %></p>
+
 <h2>Active</h2>
 
 <p>Number of active breweries: <%= @active_breweries.count %></p>

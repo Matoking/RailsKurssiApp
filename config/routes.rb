@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
 
+  get 'ngbeerlist', to:'beers#nglist'
+  get 'beerlist', to:'beers#list'
+
+  get 'brewerylist', to:'breweries#list'
+
   resources :places, only: [:index, :show]
 
   post 'places', to: 'places#search'
